@@ -1,0 +1,63 @@
+<main class="main">
+    <div class="container">
+        <form id="addUserForm" #addUserForm='ngForm' novalidate>
+            <div class="wrap">
+                <div class="form-input">
+                    <h3 class="form-label">First Name</h3>
+                    <input type="text" class="input" name="login" placeholder="John" [(ngModel)]="userInstance.login"
+                        [appCorrectFormat]="formats.name" #login='ngModel' minlength="3" required />
+                    <h6 class="alert-message" [hidden]="login.valid || login.pristine || login.untouched">
+                        Provide a valid login of characters only. Length: 3-18
+                    </h6>
+                </div>
+                <div class="form-input">
+                    <h3 class="form-label">Email</h3>
+                    <input type="email" class="input" name="email" placeholder="name@example.com"
+                        [(ngModel)]="userInstance.email" [appCorrectFormat]="formats.email" #email='ngModel' required />
+                    <h6 class="alert-message" [hidden]="email.valid || email.pristine || email.untouched">
+                        Provide a valid email
+                    </h6>
+                </div>
+                <div class="form-input">
+                    <h3 class="form-label">Password</h3>
+                    <input type="password" class="input" name="password" placeholder="Enter a password"
+                        [(ngModel)]="userInstance.password" [appCorrectFormat]="formats.password" #password='ngModel'
+                        minlength="8" required />
+                    <h6 class="alert-message" [hidden]="password.valid || password.pristine || password.untouched">
+                        Provide a better password 8 characters long at minimum
+                    </h6>
+                </div>
+            </div>
+            <div class="form-input">
+                <input type="button" id="addUser" name="addUser" value="Add User" [disabled]='!addUserForm.form.valid'
+                    (click)="addUser(addUserForm)" [hidden]="isEditModeOn" />
+                <input type="button" id="saveChanges" name="saveChanges" value="Save Changes" [hidden]="!isEditModeOn"
+                    (click)="saveChanges(addUserForm)" [disabled]='!addUserForm.form.valid' />
+            </div>
+        </form>
+        <div class="table-wrap">
+            <table class="users">
+                <thead id="thead">
+                    <tr>
+                        <th>#</th>
+                        <th>Login</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of userList; index as i; count as total;">
+                        <td>{{ i+1 }} / {{ total }} </td>
+                        <td>{{ user.login }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.password }}</td>
+                        <td><input class="edit" type="button" name="edit" value="Edit" (click)="editUser(i)"></td>
+                        <td><input class="delete" type="button" name="delete" value="Delete" (click)="deleteUser(i)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

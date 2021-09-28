@@ -1,0 +1,27 @@
+#home-main-title {
+    height: 10vh;
+    background-color: var(--bs-gray-200);
+}
+
+#main {
+    height: 90vh;
+}
+
+.card {
+    height: 300px;
+
+    .card-image {
+        height: 62%;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    &-body {
+        height: 38%;
+    }
+
+    &-title {
+        font-size: 20px;
+    }
+}

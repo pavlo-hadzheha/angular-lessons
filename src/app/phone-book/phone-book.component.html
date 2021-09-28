@@ -1,0 +1,110 @@
+<div class="container mt-3 p-3 d-flex justify-content-center" style="background-color: var(--bs-gray-100)">
+    <div class="col-10">
+        <h1 class="mb-4" style="color: var(--bs-orange)">My phone book!</h1>
+        <form class="addForm">
+            <div class="row mb-3 g-2">
+                <div class="col-12">
+                    <span class="fw-bold me-2">Search by:</span>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                            value="name" (click)="searchBy('name')" checked>
+                        <label class="btn btn-outline-dark" for="btnradio1">First Name</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                            value="surname" (click)="searchBy('surname')">
+                        <label class="btn btn-outline-dark" for="btnradio2">Last Name</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+                            value="phone" (click)="searchBy('phone')">
+                        <label class="btn btn-outline-dark" for="btnradio3">Phone</label>
+                    </div>
+                </div>
+                <div class="col-10">
+                    <input type="text" name="task" class="form-control" [(ngModel)]="searchString" [disabled]="isEdit">
+                </div>
+                <div class="col-2">
+                    <input type="button" name="task" class="form-control btn btn-success" value="Add"
+                        [disabled]="isEdit" data-bs-toggle="modal" data-bs-target="#editModal">
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th (click)="sortBy('name')">
+                            First Name <i class="fas" [class.fa-sort-up]="sortStatus.name"
+                                [class.fa-sort-down]="!sortStatus.name"></i>
+                        </th>
+                        <th (click)="sortBy('surname')">
+                            Last Name <i class="fas" [class.fa-sort-up]="sortStatus.surname"
+                                [class.fa-sort-down]="!sortStatus.surname"></i>
+                        </th>
+                        <th (click)="sortBy('phone')">
+                            Phone <i class="fas" [class.fa-sort-up]="sortStatus.surname"
+                                [class.fa-sort-down]="!sortStatus.surname"></i>
+                        </th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let entry of phoneBook | search:searchString:searchField | sort:sortedColumn:sortStatus[sortedColumn]; index as i; count as total">
+                        <th>{{ entry.name }}</th>
+                        <th>{{ entry.surname }}</th>
+                        <th>{{ entry.phone }}</th>
+                        <th>
+                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal"
+                                (click)="editEntry(i)" [disabled]="isEdit">Edit</button>
+                        </th>
+                        <th>
+                            <button class="btn btn-danger" (click)="deleteEntry(i)" [disabled]="isEdit">Delete</button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer class="container mt-5 mb-2">
+    <div class="row justify-content-center">
+        @pavlo-hadzeha
+    </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">{{ isEdit ? 'Update the info' : 'Add a new Entry' }}</h5>
+            </div>
+            <div class="modal-body">
+                <form class="row g-2" #editForm="ngForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">First name: </label>
+                        <input type="text" class="form-control" name="name" placeholder="Petro" [(ngModel)]="phoneBookModel.name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="surname" class="form-label">Last name: </label>
+                        <input type="text" class="form-control" name="surname" placeholder="Petrov" [(ngModel)]="phoneBookModel.surname" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone number: </label>
+                        <input type="text" class="form-control" name="phone" placeholder="+38 (066) 099 54 32 854" [(ngModel)]="phoneBookModel.phone" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" 
+                    (click)="addEntry()" [disabled]="!editForm.valid" [hidden]="isEdit">Add</button>
+                <button type="button" class="btn btn-warning"
+                    (click)="updateEntry()" [disabled]="!editForm.valid" [hidden]="!isEdit">Update</button>
+                <button type="button" class="btn btn-danger" id="cancelModal" data-bs-dismiss="modal"
+                    (click)="cancelUpdate()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

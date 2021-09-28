@@ -1,0 +1,15 @@
+ngh --dir dist/test-app<div class="container-fluid">
+    <div class="nav nav-pills me-3 custom-dark align-items-center" role="tablist">
+    <h5 class="me-2">Last works >>></h5>
+        <button class="nav-link" type="button" [routerLink]="['censor-app']" routerLinkActive="active">Censor
+            App</button>
+        <button class="nav-link" type="button" [routerLink]="['phone-book']" routerLinkActive="active">Phone
+            Book</button>
+        <button class="nav-link" type="button" [routerLink]="['user-list']" routerLinkActive="active">User List</button>
+        <button class="nav-link" type="button" [routerLink]="['task-list']" routerLinkActive="active">Task List</button>
+        <button class="nav-link btn text-white ms-auto fs-3 bg-success" type="button" [routerLink]="['../home']" routerLinkActive="active">Home</button>
+    </div>
+    <div class="tab-content" id="v-pills-tabContent">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <div class="row justify-content-center m-1">
+        <div class="col-12 col-lg-7 col-md-10 border p-3 bg-white rounded">
+            <p id="bad-words" class="text-danger">
+                <span class="fw-bold text-black">Bad words: </span>
+                <span class="text-danger fs-5">{{ arrBadWords.join(', ') }}</span>
+            </p>
+            <div id="censorship">
+                <div class="hstack mb-4">
+                    <input class="form-control me-2" [(ngModel)]="badWord" type="text"
+                        placeholder="enter text here ...">
+                    <input class="btn btn-warning me-2" type="button" (click)="addWord()" value="Add">
+                    <input class="btn btn-danger" type="reset" value="Reset" (click)="resetWords()">
+                </div>
+                <div class="wrapper">
+                    <button id="copy" [ngClass]="clipSettings" (click)="copy()"><i class="far fa-clipboard"></i></button>
+                    <textarea class="form-control mb-2 overflow-auto" style="resize: none; height: 40vh;" 
+                        (focus)="onFocus()" (input)="onInput()" (blur)="onBlur()"
+                        [(ngModel)]="result"></textarea>
+                </div>
+                <div class="hstack">
+                    <input id="censor" class="form-control btn btn-success me-2" type="button" value="Cenzor"
+                        (click)="censor()" [disabled]="isCensored">
+                    <button type="button" class="btn btn-danger form-control w-25 text-center"
+                        (click)="undoCensor()" [disabled]="!isCensored"><i class="fas fa-undo"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="container mt-3 p-3 d-flex justify-content-center" style="background-color: var(--bs-gray-100)">
+    <div class="col-10">
+        <h1>Plan your day!</h1>
+        <h2>User: Ivan Ivanov. Count of tasks: {{ taskList.length }}</h2>
+        <form class="addForm">
+            <div class="row mb-3">
+                <div class="col-10">
+                    <input type="text" name="task" class="form-control" [(ngModel)]="newTask.content"
+                        [disabled]="isEdit">
+                </div>
+                <div class="col-2">
+                    <input type="button" (click)="addTask()" name="task" class="form-control btn btn-success"
+                        value="Add" [disabled]="isEdit">
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Task</th>
+                        <th>DONE/IN PROGRESS</th>
+                        <th>Edit</th>
+                        <th>DELETE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of taskList; index as i; count as total"
+                        [class.obscure]="editIndex !== i && isEdit">
+                        <th>{{ i+1 }}</th>
+                        <th>{{ task.content | slice:0:50 }}</th>
+                        <th>
+                            <input type="checkbox" class="form-check-input me-2" [checked]="task.done"
+                                [(ngModel)]="task.done" name="done">
+                            <span [class]="task.done ? 'text-success' : 'text-danger'">{{ task.done ? 'DONE' : 'IN
+                                PROGRESS'}} </span>
+                        </th>
+                        <th>
+                            <button class="btn btn-warning" (click)="editTask(i)" [disabled]="isEdit">Edit</button>
+                        </th>
+                        <th>
+                            <button class="btn btn-danger" (click)="deleteTask(i)"
+                                [disabled]="!task.done">Delete</button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container w-75 mx-0" [hidden]="!isEdit">
+                <div class="row p-3 mx-0 justify-content-start" style="background-color: var(--bs-gray-400);">
+                    <div class="col-8">
+                        <input type="text" class="form-control" [(ngModel)]="edited">
+                    </div>
+                    <div class="col-2">
+                        <input type="button" class="btn btn-success" value="Update" (click)="updateTask()">
+                    </div>
+                    <div class="col-2">
+                        <input type="button" class="btn btn-danger" value="Cancel" (click)="cancelUpdate()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
