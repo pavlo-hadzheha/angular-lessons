@@ -104,13 +104,13 @@ export class UserListComponent implements OnInit {
     }
 
     editUser(index: number): void {
-        this.userInstance = this.userList[index];
+        this.userInstance = this.copyObject(this.userList[index]);
         this.isEditModeOn = true;
         this.editIndex = index;
     }
 
     saveChanges(form: NgForm): void {
-        this.userList.splice(this.editIndex as number, 1, this.userInstance);
+        this.userList.splice(this.editIndex as number, 1, this.copyObject(this.userInstance));
         this.editIndex = null;
         this.isEditModeOn = false;
         form.reset();
@@ -122,5 +122,9 @@ export class UserListComponent implements OnInit {
             email: '',
             password: ''
         }
+    }
+
+    private copyObject(obj: any): any {
+        return Object.assign({}, obj);
     }
 }

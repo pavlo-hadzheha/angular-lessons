@@ -1,0 +1,76 @@
+<header class="mb-2">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" [routerLink]="['']">Blog App (Level 1)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-md-end align-items-center" id="navbarNav">
+                <div class="btn-group">
+                    <button *ngIf="!isLoggedIn()" type="button" class="btn btn-dark btn-outline-light"
+                        [routerLink]="['sign-in']" routerLinkActive="router-link-active">Sign In</button>
+                    <a *ngIf="isLoggedIn()" type="button" class="btn btn-dark btn-outline-success"
+                        data-bs-toggle="modal" data-bs-target="#addPost">Add Post</a>
+                    <button *ngIf="isLoggedIn()" class="btn btn-outline-light"
+                        style="background-color: var(--bs-orange); text-transform: capitalize;">{{ currUser().username
+                        }}</button>
+                    <a *ngIf="!isLoggedIn()" type="button" class="btn btn-dark btn-outline-light"
+                        [routerLink]="['sign-up']" routerLinkActive="router-link-active">Sign Up </a>
+                    <a *ngIf="isLoggedIn()" type="button" class="btn btn-dark btn-outline-light"
+                        (click)="signOut()">Sign Out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container-fluid">
+        <div class="row border rounded p-3 mb-2" *ngFor="let blog of blogs">
+            <div class="col-8">
+                <h5>{{ blog.title }}</h5>
+                <p>Posted by: {{ blog.postedBy }}</p>
+                <p>{{ blog.content }}</p>
+            </div>
+            <div class="col-4 d-flex align-items-center justify-content-end text-center">
+                <div>
+                    <div class="time mb-2">
+                        <i class="far fa-clock"></i>
+                        <span> {{ blog.date | date:'HH:mm, dd.MM.YYYY' }}</span>
+                    </div>
+                    <div class="btn-group-vertical" *ngIf="checkPermission(blogt)">
+                        <button type="button" class="btn btn-warning">Edit</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+    <div class="modal fade" id="addPost" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg">
+            <form [formGroup]="postForm" (ngSubmit)="addPost()" novalidate>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title: </label>
+                            <input type="text" class="form-control" id="title" formControlName="title"
+                                placeholder="Enter a title..">
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Content: </label>
+                            <textarea class="form-control" id="content" formControlName="content" rows="6"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #close>Close</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">Post</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

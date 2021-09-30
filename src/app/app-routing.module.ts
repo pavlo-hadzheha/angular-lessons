@@ -2,20 +2,34 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { CensorAppComponent } from './censor-app/censor-app.component';
-import { UserListComponent } from './user-list/user-list.component';
-import { TaskListComponent } from './task-list/task-list.component';
-import { PhoneBookComponent } from './phone-book/phone-book.component';
+import { CensorAppComponent } from './works/censor-app/censor-app.component';
+import { UserListComponent } from './works/user-list/user-list.component';
+import { TaskListComponent } from './works/task-list/task-list.component';
+import { PhoneBookComponent } from './works/phone-book/phone-book.component';
 import { HomeComponent } from './home/home.component';
 import { WorksComponent } from './works/works.component';
+
+import { BlogAppComponent } from "./works/blog-app/blog-app.component";
+
+import { AngularBlogComponent } from "./works/angular-blog/angular-blog.component";
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: 'home', component:  HomeComponent },
   { path: 'works', component: WorksComponent, children: [
-    {path: 'task-list', component: TaskListComponent },
-    {path: 'user-list', component: UserListComponent },
-    {path: 'phone-book', component: PhoneBookComponent },
-    {path: 'censor-app', component: CensorAppComponent }
+    { path: 'task-list', component: TaskListComponent },
+    { path: 'user-list', component: UserListComponent },
+    { path: 'phone-book', component: PhoneBookComponent },
+    { path: 'censor-app', component: CensorAppComponent },
+    { path: 'angular-blog', component: AngularBlogComponent, children: [
+      { path: 'sign-in', component: SignInComponent },
+      { path: 'sign-up', component: SignUpComponent },
+    ] },
+    { path: 'blog-app', component: BlogAppComponent, children: [
+      { path: 'sign-in', component: SignInComponent },
+      { path: 'sign-up', component: SignUpComponent },
+    ] },
   ]},
   { path: '', pathMatch: 'full', redirectTo: 'home'}
 ];

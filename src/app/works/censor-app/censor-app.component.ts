@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CensorAppComponent implements OnInit {
 
   private censoredWords: Array<string> = [];
-  public arrBadWords: Array<string> = [];
+  public arrBadWords: Set<string> = new Set();
   public badWord!: string;
   public result = '';
   public isCensored = false;
@@ -26,14 +26,13 @@ export class CensorAppComponent implements OnInit {
 
   addWord(): void {
     if (this.badWord) {
-      this.arrBadWords.push(this.badWord);
+      this.arrBadWords.add(this.badWord);
       this.badWord = '';
     }
   }
 
   resetWords(): void {
-    this.arrBadWords = [];
-    this.censoredWords = [];
+    this.arrBadWords.clear();
   }
 
   onFocus(): void {
@@ -55,7 +54,7 @@ export class CensorAppComponent implements OnInit {
 
   censor(): void {
     if (this.result) {
-      let str = this.arrBadWords.join('|');
+      let str = Array.from(this.arrBadWords).join('|');
       str = `\\b(${str})\\b`;
       let regex: RegExp = new RegExp(str, 'gi');
       let replacer = (match: string): string => {
@@ -90,5 +89,9 @@ export class CensorAppComponent implements OnInit {
       this.isCopied = true;
       this.updateClipSettings();
     });
+  }
+
+  printBadWords(): string {
+    return Array.from(this.arrBadWords).join(', ');
   }
 }

@@ -1,0 +1,34 @@
+<form class="modal fade" id="signUpForm" data-bs-backdrop="static" data-bs-keyboard="false" (ngSubmit)="signIn()">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Sign In</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" [routerLink]="['..']"
+          routerLinkActive="router-link-active"></button>
+      </div>
+      <div class="modal-body">
+        <div [formGroup]="signInForm" class="col">
+          <div class="mb-3">
+            <label for="email" class="form-label">Login: </label>
+            <input type="email" class="form-control" id="email" formControlName="login"
+              placeholder="Username or email..">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password: </label>
+            <input type="password" class="form-control" id="password" formControlName="password"
+              placeholder="Your password..">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" [routerLink]="['..']" data-bs-dismiss="modal"
+          routerLinkActive="router-link-active" #close>Close</button>
+        <button type="submit" class="btn btn-primary" [disabled]="signInForm.invalid">Login</button>
+      </div>
+    </div>
+  </div>
+</form>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signUpForm" #open hidden>
+  Launch static backdrop modal
+</button>
+

@@ -1,0 +1,41 @@
+{
+  "blogs": [
+    {
+      "title": "New Post",
+      "content": "Here we are talking about ...",
+      "date": 1633041811291,
+      "postedBy": "admin",
+      "id": 1
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "password": "pain is inevitable",
+      "isAdmin": true
+    },
+    {
+      "username": "Pavlo",
+      "email": "i.w.gadzhega@gmail.com",
+      "password": "qwert12345",
+      "isAdmin": false,
+      "id": 2
+    },
+    {
+      "username": "Pavlo",
+      "email": "i.w.gadzhega@gmail.com",
+      "password": "qwert12345",
+      "isAdmin": false,
+      "id": 3
+    },
+    {
+      "username": "admin",
+      "email": "ii@gmail.com",
+      "password": "admin12345",
+      "isAdmin": false,
+      "id": 4
+    }
+  ]
+}
