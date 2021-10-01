@@ -8,6 +8,7 @@ export interface IBlogRequest {
 export interface IBlogResponse {
     id: number;
     postedBy: string;
+    editedBy?: string;
     title: string;
     date: Date;
     content: string;

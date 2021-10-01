@@ -17,6 +17,9 @@ export class AngularBlogComponent implements OnInit {
 
   public blogs!: Array<IBlogResponse>;
   public postForm!: FormGroup;
+  public isEdit = false;
+  public edited!: IBlogResponse;
+  public editedID!: number;
 
   constructor(
     private usersService: UsersService,
@@ -42,23 +45,67 @@ export class AngularBlogComponent implements OnInit {
   /**
    * addPost
    */
-  public addPost(): void {
-    let turnToMilliseconds = function (date: Date) {
-      return date.getHours() * 60 * 60 * 1000
-        + date.getMinutes() * 60 * 1000
-        + date.getSeconds() * 1000
-        + date.getMilliseconds();
-    }
-
+  public addBlog(): void {
     let post: IBlogRequest = {
       ... this.postForm.value,
       date: new Date().getTime(),
       postedBy: this.currUser().username,
-    }
+    };
     this.blogService.create(post).subscribe(() => {
       this.close.nativeElement.click();
       this.getBlogs();
     })
+  }
+
+  /**
+   * deleteBlog
+   */
+  public deleteBlog(id: number): void {
+    this.blogService.delete(id).subscribe(() => {
+      console.log('Successfully deleted');
+      this.getBlogs();
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  /**
+   * editBlog
+   */
+  public editBlog(id: number): void {
+    this.blogService.getOne(id).subscribe(data => {
+      this.edited = data;
+      this.editedID = data.id;
+      this.postForm.patchValue({
+        title: this.edited.title,
+        content: this.edited.content
+      });
+      this.isEdit = true;
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  public saveChanges() {
+    let post: IBlogResponse = {
+      ... this.postForm.value,
+      date: new Date().getTime(),
+      postedBy: this.edited.postedBy,
+      editedBy: this.currUser().username,
+    }
+    this.blogService.update(post, this.editedID).subscribe(() => {
+      console.log('Successfully updated');
+      this.close.nativeElement.click();
+      this.getBlogs();
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  /**
+   * getBlog
+   */
+  public getBlog(id: number): void {
   }
 
   /**
@@ -94,9 +141,9 @@ export class AngularBlogComponent implements OnInit {
    * checkPermission
    */
   public checkPermission(blog: IBlogResponse): boolean {
-    return this.isLoggedIn() 
-      && ( this.currUser().username === 'admin' 
-      || this.currUser().username === blog.postedBy );
+    return this.isLoggedIn()
+      && (this.currUser().username === 'admin'
+        || this.currUser().username === blog.postedBy);
   }
 
 }

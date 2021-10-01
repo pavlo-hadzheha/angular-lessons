@@ -41,7 +41,7 @@
                         </th>
                         <th>
                             <button class="btn btn-danger" (click)="deleteTask(i)"
-                                [disabled]="!task.done">Delete</button>
+                                [disabled]="!task.done || isEdit">Delete</button>
                         </th>
                     </tr>
                 </tbody>
@@ -60,6 +60,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

@@ -1,11 +1,20 @@
 {
   "blogs": [
     {
-      "title": "New Post",
-      "content": "Here we are talking about ...",
-      "date": 1633041811291,
+      "title": "New Post 2 with some changes",
+      "content": "Here we are talking about somethin else..\n\n!!!!!!!!!!!!!!!!!!!!!!!!!",
+      "date": 1633048459089,
       "postedBy": "admin",
-      "id": 1
+      "id": 2,
+      "editedBy": "admin"
+    },
+    {
+      "title": "New Post 3 (edited)",
+      "content": "Here we are talking about somethin else.. And the author is not admin",
+      "date": 1633048863388,
+      "postedBy": "Pavlo",
+      "id": 3,
+      "editedBy": "Pavlo"
     }
   ],
   "users": [
@@ -29,13 +38,6 @@
       "password": "qwert12345",
       "isAdmin": false,
       "id": 3
-    },
-    {
-      "username": "admin",
-      "email": "ii@gmail.com",
-      "password": "admin12345",
-      "isAdmin": false,
-      "id": 4
     }
   ]
 }

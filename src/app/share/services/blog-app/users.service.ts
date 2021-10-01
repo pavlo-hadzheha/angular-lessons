@@ -34,7 +34,7 @@ export class UsersService {
    * create
    */
   public create(user: IUserRequest): Observable<void> {
-    return this.http.post<void>(this.api.users, user)
+    return this.http.post<void>(this.api.users, user);
   }
 
   /**
