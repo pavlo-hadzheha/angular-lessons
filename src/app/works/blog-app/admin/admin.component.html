@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="d-flex align-items-start">
+    <div class="nav flex-column nav-pills me-3 dark-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <button class="nav-link active" type="button" [routerLink]="['blogs']" routerLinkActive="active" >Blogs</button>
+    </div>
+    <div class="tab-content flex-fill">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

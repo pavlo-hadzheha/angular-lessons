@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
-
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -26,8 +27,10 @@ import { SortPipe } from './share/pipes/sort.pipe';
 
 import { BlogAppComponent } from './works/blog-app/blog-app.component';
 import { BlogComponent } from './works/blog-app/blog/blog.component';
-import { AdminBlogComponent } from "./works/blog-app/admin-blog/admin-blog.component";
 import { AngularBlogComponent } from './works/angular-blog/angular-blog.component';
+import { environment } from 'src/environments/environment';
+import { AdminComponent } from './works/blog-app/admin/admin.component';
+import { AdminBlogsComponent } from './works/blog-app/admin/admin-blogs/admin-blogs.component';
 
 @NgModule({
   declarations: [
@@ -44,10 +47,11 @@ import { AngularBlogComponent } from './works/angular-blog/angular-blog.componen
     WorksComponent,
     BlogAppComponent,
     BlogComponent,
-    AdminBlogComponent,
     AngularBlogComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    AdminComponent,
+    AdminBlogsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,6 +59,8 @@ import { AngularBlogComponent } from './works/angular-blog/angular-blog.componen
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideStorage(() => getStorage())
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,6 +14,9 @@ import { BlogAppComponent } from "./works/blog-app/blog-app.component";
 import { AngularBlogComponent } from "./works/angular-blog/angular-blog.component";
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { AdminComponent } from './works/blog-app/admin/admin.component';
+import { AdminBlogsComponent } from './works/blog-app/admin/admin-blogs/admin-blogs.component';
+import { BlogComponent } from './works/blog-app/blog/blog.component';
 
 const routes: Routes = [
   { path: 'home', component:  HomeComponent },
@@ -22,14 +25,20 @@ const routes: Routes = [
     { path: 'user-list', component: UserListComponent },
     { path: 'phone-book', component: PhoneBookComponent },
     { path: 'censor-app', component: CensorAppComponent },
+
     { path: 'angular-blog', component: AngularBlogComponent, children: [
       { path: 'sign-in', component: SignInComponent },
       { path: 'sign-up', component: SignUpComponent },
     ] },
+
     { path: 'blog-app', component: BlogAppComponent, children: [
-      { path: 'sign-in', component: SignInComponent },
-      { path: 'sign-up', component: SignUpComponent },
-    ] },
+      { path: 'admin', component: AdminComponent, children: [
+        { path: 'blogs', component: AdminBlogsComponent },
+        { path: '', pathMatch: 'full', redirectTo: 'blogs' }
+      ] },
+      { path: 'blogs', component: BlogComponent },
+      { path: '', pathMatch: 'full', redirectTo: 'blogs' }
+    ] }
   ]},
   { path: '', pathMatch: 'full', redirectTo: 'home'}
 ];

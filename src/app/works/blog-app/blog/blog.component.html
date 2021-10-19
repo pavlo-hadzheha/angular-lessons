@@ -1,1 +1,13 @@
-<p>blog works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-12" *ngFor="let blog of blogs">
+            <img src="https://image.freepik.com/free-vector/white-abstract-background_23-2148810113.jpg" alt="Image is unavailable" class="img-fluid">
+            <div class="meta fst-italic text-primary">
+                <span>{{ blog.date | date:'short' }}</span>
+                <span> {{ blog.postedBy }}</span>
+            </div>
+            <h4 class="text-dark">{{ blog.title }}</h4>
+            <p class="text-secondary">{{ blog.content | slice:0:50 }} ...</p>
+        </div>
+    </div>
+</div>
