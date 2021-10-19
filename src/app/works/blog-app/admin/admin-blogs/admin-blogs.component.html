@@ -1,0 +1,42 @@
+<form class="container-fluid" [formGroup]="blogForm" (ngSubmit)="addBlog()">
+    <div class="mb-3">
+        <input type="text" formControlName="title" class="form-control" placeholder="title here..">
+    </div>
+    <div class="mb-3">
+        <textarea class="form-control" formControlName="content" placeholder="text here.."></textarea>
+    </div>
+    <div class="mb-3">
+        <input type="text" formControlName="postedBy" class="form-control" placeholder="author here..">
+    </div>
+    <div *ngIf="!editMode">
+        <button type="submit" class="btn btn-dark" [disabled]="blogForm.invalid">Submit</button>
+    </div>
+    <div *ngIf="editMode">
+        <button type="submit" class="btn btn-warning" [disabled]="blogForm.invalid">Save changes</button>
+    </div>
+</form>
+<hr>
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+            <th scope="col">Author</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let blog of blogs; index as i">
+            <td>{{ blog.id }}</td>
+            <td>{{ blog.date | date:'short' }}</td>
+            <td>{{ blog.title }}</td>
+            <td>{{ blog.content | slice:0:50 }}</td>
+            <td>{{ blog.postedBy }}</td>
+            <td><button type="button" class="btn btn-warning" (click)="editBlog(blog.id)">Edit</button></td>
+            <td><button type="button" class="btn btn-danger" (click)="deleteBlog(blog.id)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>

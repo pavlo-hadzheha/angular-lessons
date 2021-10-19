@@ -1,7 +1,7 @@
 export interface IBlogRequest {
     postedBy: string;
     title: string;
-    date: Date;
+    date: number;
     content: string;
 }
 
@@ -10,6 +10,6 @@ export interface IBlogResponse {
     postedBy: string;
     editedBy?: string;
     title: string;
-    date: Date;
+    date: number;
     content: string;
 }
